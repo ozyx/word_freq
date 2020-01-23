@@ -8,6 +8,8 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let contents = fs::read_to_string(config.filename)?;
 
     let count = word_count(&contents);
+
+    // Sort results (TODO: move to word_count())
     let mut count_vec: Vec<_> = count.iter().collect();
     count_vec.sort_by(|a, b| b.1.cmp(a.1));
 
