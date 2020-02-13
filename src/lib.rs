@@ -53,20 +53,42 @@ impl Config {
     }
 }
 
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn one_result() {
-        let contents = "\
-Rust:
-safe, fast, productive.
-Pick three.";
+    fn count_words() {
+        let contents = "words WoRdS, WORDS!";
+        let result = word_count(contents);
+        assert_eq! {
+            3,
+            result["words"]
+        };
+    }
 
-        // assert_eq! {
-        //     vec!["safe, fast, productive."],
-        //     // search(contents)
-        // };
+    #[test]
+    fn count_words_negative() {
+        let contents = "words WoRdS, WORDS!";
+        let result = word_count(contents);
+        assert_ne! {
+            5,
+            result["words"]
+        };
+    }
+
+    #[test]
+    fn exists_in_map() {
+        let contents = "So long, and thanks for all the fish...";
+        let result = word_count(contents);
+        assert!(result.contains_key("fish"));
+    }
+
+    #[test]
+    fn not_exists_in_map() {
+        let contents = "So long, and thanks for all the fish...";
+        let result = word_count(contents);
+        assert!(!result.contains_key("beeblebrox"));
     }
 }
